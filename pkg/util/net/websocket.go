@@ -78,14 +78,12 @@ func (p *WebsocketListener) Addr() net.Addr {
 	return p.ln.Addr()
 }
 
-// addr: domain:port
+// addr: url
 func ConnectWebsocketServer(addr string) (net.Conn, error) {
-	addr = "ws://" + addr + FrpWebsocketPath
 	uri, err := url.Parse(addr)
 	if err != nil {
 		return nil, err
 	}
-
 	origin := "http://" + uri.Host
 	cfg, err := websocket.NewConfig(addr, origin)
 	if err != nil {
